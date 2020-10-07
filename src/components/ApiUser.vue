@@ -67,6 +67,7 @@
 
 <script>
 import UsersAPI from '@/api/users';
+import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
 
 export default {
   name: "ApiUser",
@@ -86,8 +87,8 @@ export default {
 
   data: () => ({
     user: {
-      name: null,
-      avatar: null,
+      name: 'John Doe',
+      avatar_url: AvatarPlaceholder,
       company: null,
       followers: 0,
       following: 0,

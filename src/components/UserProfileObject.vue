@@ -4,7 +4,7 @@
     <v-toolbar color="grey darken-3" class="white--text" flat>
       <v-spacer></v-spacer>
       <v-toolbar-title class="font-weight-bold">
-        <h2>{{ user.name }}</h2>
+        <h2>{{ name }}</h2>
       </v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
@@ -15,7 +15,7 @@
 
     <div class="text-center ma-3">
       <v-avatar class="ma-3" size="124">
-        <v-img :src="user.avatar_url"></v-img>
+        <v-img :src="avatar"></v-img>
       </v-avatar>
     </div>
 
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
 
 export default {
   name: "UserProfileObject",
@@ -94,6 +95,12 @@ export default {
   methods: {
   },
   computed: {
+    avatar() {
+      return this.user.avatar_url ? this.user.avatar_url : AvatarPlaceholder;
+    },
+    name() {
+      return this.user.name ? this.user.name : 'John Doe';
+    }
   }
 };
 </script>

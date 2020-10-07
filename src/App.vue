@@ -12,7 +12,7 @@
         <v-col cols="12" md="6" lg="4">
           <UserProfileDetails
             :name="user.name"
-            :avatar="user.avatar_url"
+            :avatar_url="user.avatar_url"
             :company="user.company"
             :followers="user.followers"
             :following="user.following"

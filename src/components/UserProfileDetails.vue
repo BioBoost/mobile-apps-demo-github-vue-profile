@@ -66,19 +66,20 @@
 </template>
 
 <script>
+import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
 
 export default {
   name: "UserProfileDetails",
   props: {
     name: {
       type: String,
-      default: 'Unknown'
+      default: 'John Doe'
     },
     company: {
       type: String,
       default: null
     },
-    avatar: {
+    avatar_url: {
       type: String,
       default: null
     },
@@ -102,6 +103,9 @@ export default {
   methods: {
   },
   computed: {
+    avatar() {
+      return this.avatar_url ? this.avatar_url : AvatarPlaceholder;
+    }
   }
 };
 </script>
