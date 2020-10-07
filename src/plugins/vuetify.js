@@ -7,9 +7,9 @@ Vue.use(Vuetify);
 export default new Vuetify({
   theme: {
     themes: {
-      light: {
-        primary: '#ee44aa',
-        secondary: '#424242',
+      light: {    // Use some color palette website
+        primary: '#439A86',
+        secondary: '#007991',
         accent: '#82B1FF',
         error: '#FF5252',
         info: '#2196F3',

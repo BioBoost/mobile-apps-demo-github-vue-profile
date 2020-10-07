@@ -5,72 +5,85 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-main>
-      <HelloWorld v-show="false" />
-      <v-row v-show="false">
-        <v-col cols="12" md="6">
-          <p>
-            djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd
-          </p>
+      <v-row justify="center">
+        <v-col cols="12" md="6" lg="4">
+          <UserProfileDetails
+            :name="user.name"
+            :avatar="user.avatar_url"
+            :company="user.company"
+            :followers="user.followers"
+            :following="user.following"
+            :publicRepos="user.public_repos"
+            :loading="loading" />
         </v-col>
-        <v-col cols="12" md="6">
-          <p>
-            djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd djsif jsdfidsjsdisjgfdigjfdgdfi fdjggifdj gi jfdgidgjgd fifgd jfgidf gjfd
-          </p>
+        <v-col cols="12" md="6" lg="4">
+          <UserProfileObject
+            :user="userObj"
+            :loading="loading" />
+        </v-col>
+        <v-col cols="12" md="6" lg="4">
+          <UserProfileObject
+            :user="user"
+            :loading="loading" />
+        </v-col>
+        <v-col cols="12" md="6" lg="4">
+          <ApiUser id="bioboost" />
         </v-col>
       </v-row>
 
-
-
-      
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import UsersAPI from './api/users';
+import UserProfileDetails from "@/components/UserProfileDetails";
+import UserProfileObject from "@/components/UserProfileObject";
+import ApiUser from "@/components/ApiUser";
 
 export default {
   name: 'App',
 
+  created() {
+    console.log("Loading user ...");
+    this.loading = true;
+    setTimeout(() => {
+      this.fetch();
+    }, 5000)
+  },
+
   components: {
-    HelloWorld,
+    UserProfileDetails,
+    UserProfileObject,
+    ApiUser
   },
 
   data: () => ({
-    //
+    user: {},
+    userObj: {},
+    loading: false
   }),
+
+  methods: {
+    fetch() {
+      console.log("Fetching profile ....");
+
+      UsersAPI.getUser('bioboost')
+      .then(response => {
+        console.log(response);
+
+        // Populate UserProfile_Details
+        this.user = response.data;
+        this.userObj = response.data;
+        this.loading = false;
+      })
+      .catch(e => {
+        console.log(e);
+      })
+    }
+  }
 };
 </script>
