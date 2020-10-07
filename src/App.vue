@@ -5,6 +5,31 @@
       color="primary"
       dark
     >
+
+      <v-spacer></v-spacer>
+
+      <v-toolbar-title>Cool GitHub Profile Fetcher</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-row>
+        <v-col cols="6">
+        </v-col>
+        <v-col cols="6">
+          <v-text-field
+            hide-details
+            placeholder="Fetch profile"
+            prepend-icon="mdi-magnify"
+            single-line
+            clearable
+            @keyup.enter="doSearch"
+            v-model="search"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+
+
+
     </v-app-bar>
 
     <v-main>
@@ -45,7 +70,7 @@
             :loading="loading" />
         </v-col>
         <v-col cols="12" md="6" lg="4">
-          <ApiUser id="bioboost" />
+          <ApiUser :uid="username" />
         </v-col>
       </v-row>
 
@@ -64,11 +89,8 @@ export default {
 
   created() {
     console.log("Loading user ...");
-    this.loading = true;
-    setTimeout(() => {
-      this.fetch();
-      this.fetchWithError();
-    }, 5000)
+    this.fetch();
+    this.fetchWithError();
   },
 
   components: {
@@ -81,36 +103,47 @@ export default {
     user: {},
     userObj: {},
     loading: false,
-    error: null
+    error: null,
+    search: '',
+    username: 'BioBoost'
   }),
 
   methods: {
+    doSearch() {
+      this.username = this.search;
+      this.fetch();
+    },
     fetch() {
-      console.log("Fetching profile ....");
+      console.log(`Fetching profile of ${this.username} ...`);
+      this.loading = true;
 
-      UsersAPI.getUser('bioboost')
-      .then(response => {
-        console.log(response);
+      setTimeout(() => {
+        UsersAPI.getUser(this.username)
+        .then(response => {
+          console.log(response);
 
-        // Populate UserProfile_Details
-        this.user = response.data;
-        this.userObj = response.data;
-        this.loading = false;
-      })
-      .catch(e => {
-        this.error = e;
-      })
+          // Populate UserProfile_Details
+          this.user = response.data;
+          this.userObj = response.data;
+          this.loading = false;
+        })
+        .catch(e => {
+          this.error = e;
+        })
+      }, 2000)
     },
     fetchWithError() {
       console.log("Fetching an error ....");
 
-      UsersAPI.getUser('none')
-      .then(response => {
-        console.log(response);
-      })
-      .catch(e => {
-        this.error = e;
-      })
+      setTimeout(() => {
+        UsersAPI.getUser('none')
+        .then(response => {
+          console.log(response);
+        })
+        .catch(e => {
+          this.error = e;
+        })
+      }, 2000)
     }
   }
 };

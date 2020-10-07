@@ -72,17 +72,14 @@ import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
 export default {
   name: "ApiUser",
   props: {
-    id: {
+    uid: {
       type: String
     }
   },
 
   created() {
     console.log("Loading user via API ...");
-    this.loading = true;
-    setTimeout(() => {
       this.fetch();
-    }, 5000)
   },
 
   data: () => ({
@@ -96,22 +93,28 @@ export default {
     },
     loading: false
   }),
-
+  watch: {
+    uid: function (/*newUid, oldUid*/) {
+      this.fetch()
+    }
+  },
   methods: {
     fetch() {
       console.log("Fetching profile ....");
 
-      UsersAPI.getUser('bioboost')
-      .then(response => {
-        console.log(response);
+      this.loading = true;
+      setTimeout(() => {
+        UsersAPI.getUser(this.uid)
+        .then(response => {
+          console.log(response);
 
-        // Populate UserProfile_Details
-        this.user = response.data;
-        this.loading = false;
-      })
-      .catch(e => {
-        console.log(e);
-      })
+          this.user = response.data;
+          this.loading = false;
+        })
+        .catch(e => {
+          console.log(e);
+        })
+      }, 2000);
     }
   }
 };
