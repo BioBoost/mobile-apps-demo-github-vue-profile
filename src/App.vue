@@ -9,6 +9,21 @@
 
     <v-main>
       <v-row justify="center">
+        <v-col cols="8">
+          <v-alert
+            :value="!!error"
+            border="left"
+            close-text="Close"
+            color="red"
+            dark
+            dismissible
+          >
+            {{ error }}
+          </v-alert>
+        </v-col>
+      </v-row>
+      
+      <v-row justify="center">
         <v-col cols="12" md="6" lg="4">
           <UserProfileDetails
             :name="user.name"
@@ -52,6 +67,7 @@ export default {
     this.loading = true;
     setTimeout(() => {
       this.fetch();
+      this.fetchWithError();
     }, 5000)
   },
 
@@ -64,7 +80,8 @@ export default {
   data: () => ({
     user: {},
     userObj: {},
-    loading: false
+    loading: false,
+    error: null
   }),
 
   methods: {
@@ -81,7 +98,18 @@ export default {
         this.loading = false;
       })
       .catch(e => {
-        console.log(e);
+        this.error = e;
+      })
+    },
+    fetchWithError() {
+      console.log("Fetching an error ....");
+
+      UsersAPI.getUser('none')
+      .then(response => {
+        console.log(response);
+      })
+      .catch(e => {
+        this.error = e;
       })
     }
   }
