@@ -30,10 +30,9 @@ export default {
   components: {
     UserDetails
   },
-  created() {
-    // console.log("Loading user ...");
-    // this.loading = true;
-      this.fetch();
+  created() {    // LifeCycle HOOK
+    console.log("Loading user ...");
+    this.fetch();   // Call the API
   },
 
   data: () => ({
