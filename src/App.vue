@@ -33,6 +33,12 @@
             :user="userObject"
           />
         </v-col>
+
+        <v-col cols="12" md="6" lg="4">
+          <ApiUser
+            :uid="username"
+          />
+        </v-col>
       </v-row>
 
     </v-main>
@@ -44,13 +50,15 @@ import UsersAPI from './api/users';
 import UserDetails from "@/components/UserDetails";   // @ = src dir
 import UserObject from "@/components/UserObject";
 import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
+import ApiUser from "@/components/ApiUser";
 
 export default {
   name: 'App',
   // Tell Vue what components we need
   components: {
     UserDetails,
-    UserObject
+    UserObject,
+    ApiUser
   },
   created() {    // LifeCycle HOOK
     console.log("Loading user ...");
@@ -65,7 +73,8 @@ export default {
       followers: 0,
       public_repos: 0,
       avatar_url: AvatarPlaceholder
-    }
+    },
+    username: 'bioboost'
   }),
 
   methods: {

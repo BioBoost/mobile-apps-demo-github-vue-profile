@@ -14,7 +14,7 @@
 
     <div class="text-center ma-3">
       <v-avatar class="ma-3" size="124">
-        <v-img :src="avatar"></v-img>
+        <v-img :src="user.avatar_url"></v-img>
       </v-avatar>
     </div>
 
@@ -58,7 +58,8 @@
 </template>
 
 <script>
-// import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
+import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
+import UsersAPI from "@/api/users"
 
 export default {
   name: 'ApiUser',
@@ -72,7 +73,13 @@ export default {
   },
   data() {
     return {
-      user: {}
+      user: {
+        name: 'John Doe',
+        following: 0,
+        followers: 0,
+        public_repos: 0,
+        avatar_url: AvatarPlaceholder
+      }
     }
   },
   methods: {
