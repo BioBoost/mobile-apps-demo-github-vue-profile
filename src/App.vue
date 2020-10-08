@@ -11,7 +11,14 @@
       <v-row justify="center">
         <v-col cols="12" md="6" lg="4">
 
-          <UserDetails />
+          <UserDetails
+            :name="user.name"
+            :company="user.company"
+            :followers="user.followers"
+            :following="user.following"
+            :avatar_url="user.avatar_url"
+            :public_repos="user.public_repos"
+          />
 
         </v-col>
       </v-row>
