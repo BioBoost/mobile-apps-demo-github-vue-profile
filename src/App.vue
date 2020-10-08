@@ -21,9 +21,16 @@
           />
 
         </v-col>
+
         <v-col cols="12" md="6" lg="4">
           <UserObject
             :user="user"
+          />
+        </v-col>
+
+        <v-col cols="12" md="6" lg="4">
+          <UserObject
+            :user="userObject"
           />
         </v-col>
       </v-row>
@@ -36,6 +43,7 @@
 import UsersAPI from './api/users';
 import UserDetails from "@/components/UserDetails";   // @ = src dir
 import UserObject from "@/components/UserObject";
+import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
 
 export default {
   name: 'App',
@@ -51,6 +59,13 @@ export default {
 
   data: () => ({
     user: {},
+    userObject: {
+      name: 'John Doe',
+      following: 0,
+      followers: 0,
+      public_repos: 0,
+      avatar_url: AvatarPlaceholder
+    }
   }),
 
   methods: {
@@ -64,6 +79,7 @@ export default {
 
           // Populate UserProfile_Details
           this.user = response.data;
+          this.userObject = response.data;
         })
         .catch(e => {
           console.log(e);
