@@ -14,7 +14,7 @@
 
     <div class="text-center ma-3">
       <v-avatar class="ma-3" size="124">
-        <v-img :src="user.avatar_url"></v-img>
+        <v-img :src="avatar"></v-img>
       </v-avatar>
     </div>
 
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-// import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
+import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
 
 export default {
   name: 'UserObject',
@@ -69,7 +69,11 @@ export default {
       // Arrow function return empty object
       default: () => {}
     },
+  },
+  computed: {
+    avatar() {
+      return this.user.avatar_url ? this.user.avatar_url : AvatarPlaceholder;
+    }
   }
-
 };
 </script>
