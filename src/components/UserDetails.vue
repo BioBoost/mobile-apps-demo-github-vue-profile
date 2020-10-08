@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
 
 export default {
   name: 'UserDetails',
@@ -84,7 +85,7 @@ export default {
     },
     avatar_url: {
       type: String,
-      default: ''
+      default: AvatarPlaceholder
     }
   }
 
