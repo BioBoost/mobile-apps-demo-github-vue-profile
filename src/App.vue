@@ -21,6 +21,11 @@
           />
 
         </v-col>
+        <v-col cols="12" md="6" lg="4">
+          <UserObject
+            :user="user"
+          />
+        </v-col>
       </v-row>
 
     </v-main>
@@ -30,12 +35,14 @@
 <script>
 import UsersAPI from './api/users';
 import UserDetails from "@/components/UserDetails";   // @ = src dir
+import UserObject from "@/components/UserObject";
 
 export default {
   name: 'App',
   // Tell Vue what components we need
   components: {
-    UserDetails
+    UserDetails,
+    UserObject
   },
   created() {    // LifeCycle HOOK
     console.log("Loading user ...");

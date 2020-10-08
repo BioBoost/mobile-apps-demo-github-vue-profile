@@ -58,14 +58,16 @@
 </template>
 
 <script>
-import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
+// import AvatarPlaceholder from "@/assets/avatar-placeholder.png"
 
 export default {
   name: 'UserObject',
   props: {
     user: {
       type: Object,
-      default: {}
+      // Default requires function.
+      // Arrow function return empty object
+      default: () => {}
     },
   }
 
