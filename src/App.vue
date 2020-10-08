@@ -25,15 +25,14 @@ import UserDetails from "@/components/UserDetails";   // @ = src dir
 
 export default {
   name: 'App',
-  
-
+  // Tell Vue what components we need
+  components: {
+    UserDetails
+  },
   created() {
     // console.log("Loading user ...");
     // this.loading = true;
       this.fetch();
-  },
-
-  components: {
   },
 
   data: () => ({
