@@ -11,6 +11,7 @@
       <v-row justify="center">
         <v-col cols="12" md="6" lg="4">
 
+          <UserDetails />
 
         </v-col>
       </v-row>
