@@ -10,27 +10,63 @@
     <v-main>
       <v-row justify="center">
         <v-col cols="12" md="6" lg="4">
-          <UserProfileDetails
-            :name="user.name"
-            :avatar="user.avatar_url"
-            :company="user.company"
-            :followers="user.followers"
-            :following="user.following"
-            :publicRepos="user.public_repos"
-            :loading="loading" />
-        </v-col>
-        <v-col cols="12" md="6" lg="4">
-          <UserProfileObject
-            :user="userObj"
-            :loading="loading" />
-        </v-col>
-        <v-col cols="12" md="6" lg="4">
-          <UserProfileObject
-            :user="user"
-            :loading="loading" />
-        </v-col>
-        <v-col cols="12" md="6" lg="4">
-          <ApiUser id="bioboost" />
+
+          <v-card class="rounded-t-xl">
+            <v-toolbar color="grey darken-3" class="white--text" flat>
+              <v-spacer></v-spacer>
+              <v-toolbar-title class="font-weight-bold">
+                <h2>{{ user.name }}</h2>
+              </v-toolbar-title>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+
+            <div class="text-center ma-3" v-if="user.company">
+              <span>Works @ {{ user.company }}</span>
+            </div>
+
+            <div class="text-center ma-3">
+              <v-avatar class="ma-3" size="124">
+                <v-img :src="user.avatar_url"></v-img>
+              </v-avatar>
+            </div>
+
+            <v-card-text class="primary lighten-1 text-center white--text">
+
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <span>Public Repos</span>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <h2>{{ user.public_repos }}</h2>
+                </v-col>
+              </v-row>
+
+              <v-divider />
+
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <span>Followers</span>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <h2>{{ user.followers }}</h2>
+                </v-col>
+              </v-row>
+
+              <v-divider />
+
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <span>Following</span>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <h2>{{ user.following }}</h2>
+                </v-col>
+              </v-row>
+
+            </v-card-text>
+
+          </v-card>
+
         </v-col>
       </v-row>
 
@@ -40,49 +76,39 @@
 
 <script>
 import UsersAPI from './api/users';
-import UserProfileDetails from "@/components/UserProfileDetails";
-import UserProfileObject from "@/components/UserProfileObject";
-import ApiUser from "@/components/ApiUser";
 
 export default {
   name: 'App',
 
   created() {
-    console.log("Loading user ...");
-    this.loading = true;
-    setTimeout(() => {
+    // console.log("Loading user ...");
+    // this.loading = true;
       this.fetch();
-    }, 5000)
   },
 
   components: {
-    UserProfileDetails,
-    UserProfileObject,
-    ApiUser
   },
 
   data: () => ({
     user: {},
-    userObj: {},
-    loading: false
   }),
 
   methods: {
     fetch() {
       console.log("Fetching profile ....");
 
-      UsersAPI.getUser('bioboost')
-      .then(response => {
-        console.log(response);
+      setTimeout(() => {
+        UsersAPI.getUser('bioboost')
+        .then(response => {
+          console.log(response);
 
-        // Populate UserProfile_Details
-        this.user = response.data;
-        this.userObj = response.data;
-        this.loading = false;
-      })
-      .catch(e => {
-        console.log(e);
-      })
+          // Populate UserProfile_Details
+          this.user = response.data;
+        })
+        .catch(e => {
+          console.log(e);
+        })
+      }, 2000)
     }
   }
 };
